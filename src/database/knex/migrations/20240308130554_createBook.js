@@ -9,7 +9,7 @@ exports.up = (knex) => {
     table.string('category').notNullable();
     table.date('published').notNullable();
     table.boolean('borrowed').defaultTo('false');
-    table.integer('client_id').unsigned().index().references('id').inTable("clients");
+    
   })
 };
 

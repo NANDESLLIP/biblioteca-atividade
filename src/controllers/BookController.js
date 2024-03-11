@@ -33,7 +33,8 @@ class BookController{
 
         const borrowed = true
         
-        await knex("books").where({id: book_id}).update({client_id, borrowed})
+        await knex("books").where({id: book_id}).update({borrowed})
+        await knex("clients").where({id:client_id}).update({book_id})
 
         return res.status(201).json("Livro emprestado!")
     }
@@ -54,7 +55,7 @@ class BookController{
         
         await knex("books").where({id: book_id}).delete()
 
-        return res.status(200).json("Livro Deletado!!");
+        return res.status(200).json("Livro Deletado!!")
     }
 }
 

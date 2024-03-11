@@ -7,7 +7,8 @@ exports.up = (knex) => {
     table.string('username').notNullable();
     table.string('telefon').notNullable();
     table.string('email').notNullable();
-    table.integer('loan').notNullable();
+    table.integer("book_id").unsigned().index().references("id").inTable("books")
+
   })
 };
 
