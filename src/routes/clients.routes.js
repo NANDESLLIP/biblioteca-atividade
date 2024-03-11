@@ -9,7 +9,7 @@ const clientController = new ClientController();
 clientRoutes.post("/clients", clientController.createUser)
 clientRoutes.get("/clients", clientController.listClient)
 clientRoutes.get("/clients/:client_id", checkClientExists, clientController.listClientById)
-clientRoutes.put("/clients/:client_id", clientController.updateClient)
-clientRoutes.delete("/clients/:client_id", clientController.deleteClient)
+clientRoutes.put("/clients/:client_id",checkClientExists,  clientController.updateClient)
+clientRoutes.delete("/clients/:client_id",checkClientExists,  clientController.deleteClient)
 
 module.exports = clientRoutes;
