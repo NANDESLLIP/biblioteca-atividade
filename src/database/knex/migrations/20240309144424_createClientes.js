@@ -7,8 +7,8 @@ exports.up = (knex) => {
     table.string('username').notNullable();
     table.string('telefon').notNullable();
     table.string('email').notNullable();
-    table.integer("book_id").unsigned().index().references("id").inTable("books")
-
+    table.timestamp("created_at").defaultTo(knex.fn.now());
+    table.timestamp("updated_at").defaultTo(knex.fn.now());
   })
 };
 

@@ -4,9 +4,8 @@ class ClientController{
     async createUser(req, res){
         const{name, username, telefon, email} = req.body
 
-        const loan = 0;
 
-        await knex("clients").insert({name, username, telefon, email, loan})
+        await knex("clients").insert({name, username, telefon, email})
 
         return res.status(201).json("Cliente cadastrado");
     }

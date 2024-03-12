@@ -3,15 +3,12 @@ const knex = require('../database/knex')
 async function bookIsAlreadyBorrowed(req, res, next){
     const {book_id} = req.params
 
-    const book = await knex("books").where({id: book_id})
+    const book = await knex("books").where({id: book_id}).first()
 
-    if(!book.borrowed){
+    if(book.borrowed == false){
         next()
     }
-
-    return res.status(400).json("Livro Indisponivel")
-
-    console.log(book.borrowed);
+        return res.status(400).json("Livro Indisponivel")
 }
 
-module.exports = bookIsAlreadyBorrowed
+module.exports = bookIsAlreadyBorrowed 

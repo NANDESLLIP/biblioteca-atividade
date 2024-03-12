@@ -9,7 +9,9 @@ exports.up = (knex) => {
     table.string('category').notNullable();
     table.date('published').notNullable();
     table.boolean('borrowed').defaultTo('false');
-    
+    table.integer('qntdLivro').notNullable();
+    table.timestamp("created_at").defaultTo(knex.fn.now());
+    table.timestamp("updated_at").defaultTo(knex.fn.now());
   })
 };
 

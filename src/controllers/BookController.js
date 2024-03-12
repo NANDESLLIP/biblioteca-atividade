@@ -1,14 +1,13 @@
 const knex = require("../database/knex")
 
-const ClientController = require("./ClientController")
 
 
 class BookController{
 
     async createBook(req, res){
-        const {title, author, category, pages, published} = req.body
+        const {title, author, category, pages, published, qntdLivro} = req.body
 
-        await knex("books").insert({title, author, category, pages, published})
+        await knex("books").insert({title, author, category, pages, published, qntdLivro})
 
         return res.status(201).json("Livro cadastrado!!")
     }
@@ -27,25 +26,28 @@ class BookController{
         return res.status(200).json(book);
     }
 
-    async borrowedBook(req, res) {
+    async loan(req, res) {
         const {book_id} = req.params
         const {client_id} = req.params
 
-        const borrowed = true
+        const borrowed = true;
+
+        //const qntdLivro = diminuirLivro(book_id)
+    
+
+        await knex("bookClient").insert({book_id, client_id})
+
+        await knex("books").where({id: book_id}).decrement("qntdLivro", 1).update({borrowed})
         
-        await knex("books").where({id: book_id}).update({borrowed})
-        await knex("clients").where({id:client_id}).update({book_id})
 
         return res.status(201).json("Livro emprestado!")
     }
 
     async returnedBook(req, res) {
         const {book_id} = req.params
-        const client_id = null
-
         const borrowed = false
         
-        await knex("books").where({id: book_id}).update({client_id, borrowed})
+        await knex("books").where({id: book_id}).sum("qntdLivro", 1).update({borrowed})
 
         return res.status(201).json("Livro devolvido!")
     }
@@ -57,6 +59,12 @@ class BookController{
 
         return res.status(200).json("Livro Deletado!!")
     }
+
+    /*async diminuirLivro(book_id){
+        const livro = await knex("books")
+
+        livro.qntdLivro--
+    }*/
 }
 
 module.exports = BookController
