@@ -1,3 +1,6 @@
+const swaggerUi = require("swagger-ui-express")
+const  swaggerDocument  =  require ( './swagger.json' ) ;
+
 const express = require("express")
 
 const routes = require("./routes")
@@ -9,6 +12,7 @@ app.use(express.json())
 app.use(routes);
 
 
+app.use("/api-doc", swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send("Algo deu errado")

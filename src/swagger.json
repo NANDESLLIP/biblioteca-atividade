@@ -1,0 +1,140 @@
+{
+    "openapi" : "3.0.3",
+    "info" : {
+        "title" : "Swagger Library Manager - OpensAPI 3.0",
+        "description": "Esta é a documentação da API para gerenciamento de uma biblioteca",
+        "contact": {
+            "email": "fellipe.0912@aluno.pr.senac.br"
+        },
+        "version" : "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3333"
+            
+        }
+    ],
+    "tags": [
+        {
+            "name": "books",
+            "description": "Gerenciamento dos livros da Biblioteca"
+        },
+        {
+            "name": "users",
+            "description": "Operação a respeito do usuário"
+        }
+    ],
+    "paths": {
+        "/books": {
+            "post": {
+                "tags": ["books"],
+                "summary": "Cria um novo livro",
+                "description": "Cria um novo livro passando suas informações básicas",
+                "requestBody": {
+                    "content": {
+                        "apllication/json": {
+                            "schema": {
+                                "$ref": "#components/schemas/Book"
+                            },
+                            "examples": {
+                                "book": {
+                                    "value": {
+                                        "title": "Código Limpo",
+                                        "author": "Robert Cecil Martin",
+                                        "category": "Informativo",
+                                        "pages": 10,
+                                        "published": "2008-08-01"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Livro já cadastrado" 
+                    },
+                    "200": {
+                        "description": "Livro criado com sucesso!",
+                        "content": {
+                            "apllication/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "items": {
+                                        "$ref": "#components/schemas/Book"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": ["books"],
+                "summary": "Listar os livros",
+                "description": "Lista os livros que estão cadastrados",
+                "requestBody": {
+                    "content": {
+                        "apllication/json": {
+                            "schema": {
+                                "$ref": "#components/schemas/Book"
+                            },
+                            "examples": {
+                                "book": {
+                                    "value": {
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Livro criado com sucesso!",
+                        "content": {
+                            "apllication/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "items": {
+                                        "$ref": "#components/schemas/Book"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users": {
+            
+        }
+    },
+    "components": {
+        "schemas": {
+            "Book":{
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string"
+                    },
+                    "author": {
+                        "type": "string"
+                    },
+                    "category": {
+                        "type": "string"
+                    },
+                    "pages": {
+                        "type": "integer"
+                    },
+                    "published": {
+                        "type": "date"
+                    },
+                    "qntdLivros": {
+                        "type": "integer"
+                    }
+                }
+            }
+        }
+        
+    }
+}
